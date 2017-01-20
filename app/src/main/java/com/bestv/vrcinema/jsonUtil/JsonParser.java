@@ -1,0 +1,157 @@
+package com.bestv.vrcinema.jsonUtil;
+
+import android.graphics.Bitmap;
+import android.view.View;
+
+import com.bestv.vrcinema.model.MovieInfo;
+import com.bestv.vrcinema.model.RecommendInfoSingleton;
+import com.bestv.vrcinema.model.SearchMsgInfo;
+import com.bestv.vrcinema.model.SearchResultInfo;
+import com.bestv.vrcinema.model.TouchRecommendInfo;
+import com.bestv.vrcinema.model.WelcomeInfo;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+/**
+ * Created by xujunyang on 17/1/3.
+ */
+
+public class JsonParser {
+    public static String successCode = "SUCCESS";
+    public static TouchRecommendInfo parseTouchRecommend(String data){
+        TouchRecommendInfo touchRecommendInfo = null;
+        try{
+            JSONObject jsonObj = new JSONObject(data);
+            String code = jsonObj.getString("code");
+            if(code.equals(successCode)){
+                touchRecommendInfo = new TouchRecommendInfo();
+                touchRecommendInfo.setHasNext(jsonObj.getBoolean("hasNextPage"));
+                touchRecommendInfo.setPageIndex(jsonObj.getInt("pageIndex"));
+
+                JSONArray jsonArray = jsonObj.getJSONArray("categoryItemVOs");
+                for (int i = 0; i < jsonArray.length(); i++){
+                    JSONObject element = jsonArray.getJSONObject(i);
+                    MovieInfo movieInfo = new MovieInfo();
+                    movieInfo.name = element.getString("name");
+                    movieInfo.code = element.getString("code");
+                    movieInfo.type = element.getString("type");
+                    movieInfo.playUrl = element.getString("playUrl");
+                    movieInfo.horizontalPic = element.getString("horizontalPic");
+                    movieInfo.verticalPic = element.getString("verticalPic");
+                    movieInfo.duration = element.getInt("length")/60;
+                    movieInfo.rating = element.getDouble("rating");
+                    movieInfo.showDetail = element.getString("showDetail");
+                    movieInfo.year = element.optString("year");
+                    movieInfo.episode = element.optInt("episode");
+                    movieInfo.genre = element.getString("genre");
+                    movieInfo.actor = element.getString("actor");
+                    movieInfo.director = element.getString("director");
+                    movieInfo.description = element.getString("description");
+
+                    touchRecommendInfo.addMovieInfo(movieInfo);
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return touchRecommendInfo;
+    }
+
+    public static SearchResultInfo parseSearchResult(String data){
+        SearchResultInfo searchResultInfo = null;
+        try{
+            JSONObject jsonObj = new JSONObject(data);
+            String code = jsonObj.getString("code");
+            if(code.equals(successCode)){
+                searchResultInfo = new SearchResultInfo();
+                searchResultInfo.setHasNext(jsonObj.getBoolean("hasNextPage"));
+                searchResultInfo.setPageIndex(jsonObj.getInt("pageIndex"));
+
+                JSONArray jsonArray = jsonObj.getJSONArray("categoryItemVOs");
+                for (int i = 0; i < jsonArray.length(); i++){
+                    JSONObject element = jsonArray.getJSONObject(i);
+                    MovieInfo movieInfo = new MovieInfo();
+                    movieInfo.name = element.getString("name");
+                    movieInfo.code = element.getString("code");
+                    movieInfo.type = element.getString("type");
+                    movieInfo.playUrl = element.getString("playUrl");
+                    movieInfo.horizontalPic = element.getString("horizontalPic");
+                    movieInfo.verticalPic = element.getString("verticalPic");
+                    movieInfo.rating = element.getDouble("rating");
+                    movieInfo.showDetail = element.getString("showDetail");
+                    movieInfo.year = element.optString("year");
+                    movieInfo.episode = element.optInt("episode");
+                    movieInfo.genre = element.getString("genre");
+
+                    searchResultInfo.addMovieInfo(movieInfo);
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return searchResultInfo;
+    }
+
+    public static void parseWelcomInfo(String data){
+        try{
+            JSONObject jsonObj = new JSONObject(data);
+            int rc = jsonObj.getInt("rc");
+            if(rc == 0){
+                JSONObject body = jsonObj.getJSONObject("body");
+                WelcomeInfo.getInstance().title = body.getString("title");
+                WelcomeInfo.getInstance().content = body.getString("content");
+                WelcomeInfo.getInstance().btnStr = body.getString("button");
+                WelcomeInfo.getInstance().btnURL = body.getString("url");
+
+                try {
+                    JSONObject boot_ad = body.getJSONObject("boot_ad");
+                    WelcomeInfo.getInstance().adType = boot_ad.getString("type");
+                    WelcomeInfo.getInstance().imgURL = boot_ad.getString("ad_img_url");
+                    WelcomeInfo.getInstance().btnType = boot_ad.getInt("button_type");
+                    WelcomeInfo.getInstance().timeout = boot_ad.getInt("timeout");
+
+                    if(WelcomeInfo.getInstance().adType.contains(WelcomeInfo.OPENTAG)){
+                        WelcomeInfo.getInstance().adValue = boot_ad.getString("value");
+                    }else if(WelcomeInfo.getInstance().adType.contains(WelcomeInfo.PLAYTAG)){
+                        JSONObject videoInfo = boot_ad.getJSONObject("value");
+                        // for video
+                        WelcomeInfo.getInstance().videoCode = videoInfo.getString("video_code");
+                        WelcomeInfo.getInstance().videoType = videoInfo.getString("video_type");
+                        WelcomeInfo.getInstance().videoName = videoInfo.getString("video_name");
+                        WelcomeInfo.getInstance().videoURL = videoInfo.getString("video_url");
+                    }
+
+                    // 显示开机广告
+                    WelcomeInfo.getInstance().showAd = true;
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static SearchMsgInfo parseSearchHintResult(String data) {
+        SearchMsgInfo searchMsgInfo = null;
+        try{
+            JSONObject jsonObj = new JSONObject(data);
+            String code = jsonObj.getString("code");
+            if(code.equals(successCode)){
+                searchMsgInfo = new SearchMsgInfo();
+                searchMsgInfo.setSearchMsg(jsonObj.getString("searchMessage"));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return searchMsgInfo;
+    }
+}

@@ -1,0 +1,6 @@
+app/build/intermediates
+app/build/outputs
+.gradle/2.10/tasks
+app/build/generated
+PushSDK/build/intermediates
+.gradle/2.14.1/tasks

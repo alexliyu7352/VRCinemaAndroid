@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:background="#e6e9ed"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <ImageButton
+            android:id="@+id/search_back"
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/icon_back"
+            android:layout_marginLeft="15dp"
+            android:background="#00000000"/>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:background="#f5f7fa">
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/icon_search_small"/>
+            <EditText
+                android:id="@+id/input_search_content_et"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:drawablePadding="8dp"
+                android:gravity="start|center_vertical"
+                android:hint="输入查询的关键字"
+                android:textColorHint="#b0b2b4"
+                android:imeOptions="actionSearch"
+                android:maxLines="1"
+                android:textSize="16sp" />
+            <!--flagNoExtractUi-->
+            <ImageButton
+                android:id="@+id/clear_result"
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/icon_clean"
+                android:background="#00000000"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/search_done"
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
+            android:textSize="14sp"
+            android:text="搜索"
+            android:textColor="#ffffff"
+            android:background="#64bad8"/>
+    </LinearLayout>
+    <LinearLayout
+        android:background="#f5f7fa"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="85dp">
+
+            <ProgressBar
+                android:id="@+id/search_progressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"/>
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/search_content_show_ll"
+                android:layout_width="435dp"
+                android:layout_height="wrap_content">
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/search_result_show_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

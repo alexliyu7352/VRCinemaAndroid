@@ -1,0 +1,74 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Replaced Jars with Dependencies:
+--------------------------------
+The importer recognized the following .jar files as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the .jar file in your project was of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the jar replacement in the import wizard and try again:
+
+android-support-v4.jar => com.android.support:support-v4:23.4.0
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+* AndroidManifest.xml => app\src\main\AndroidManifest.xml
+* assets\ => app\src\main\assets\
+* libs\android-async-http-1.4.4.jar => app\libs\android-async-http-1.4.4.jar
+* libs\armeabi-v7a\libaudioplugingvrunity.so => app\src\main\jniLibs\armeabi-v7a\libaudioplugingvrunity.so
+* libs\armeabi-v7a\libBlueDoveMediaRender.so => app\src\main\jniLibs\armeabi-v7a\libBlueDoveMediaRender.so
+* libs\armeabi-v7a\libcocklogic.so => app\src\main\jniLibs\armeabi-v7a\libcocklogic.so
+* libs\armeabi-v7a\libcodec_armv6vfp.so => app\src\main\jniLibs\armeabi-v7a\libcodec_armv6vfp.so
+* libs\armeabi-v7a\libfsp2p.so => app\src\main\jniLibs\armeabi-v7a\libfsp2p.so
+* libs\armeabi-v7a\libfsplayer_armv6vfp.so => app\src\main\jniLibs\armeabi-v7a\libfsplayer_armv6vfp.so
+* libs\armeabi-v7a\libgvrunity.so => app\src\main\jniLibs\armeabi-v7a\libgvrunity.so
+* libs\armeabi-v7a\libmain.so => app\src\main\jniLibs\armeabi-v7a\libmain.so
+* libs\armeabi-v7a\libmono.so => app\src\main\jniLibs\armeabi-v7a\libmono.so
+* libs\armeabi-v7a\libOculusMediaSurface.so => app\src\main\jniLibs\armeabi-v7a\libOculusMediaSurface.so
+* libs\armeabi-v7a\libtnet-2.0.17.2-agoo.so => app\src\main\jniLibs\armeabi-v7a\libtnet-2.0.17.2-agoo.so
+* libs\armeabi-v7a\libunity.so => app\src\main\jniLibs\armeabi-v7a\libunity.so
+* libs\BesTVMediaPlayer.jar => app\libs\BesTVMediaPlayer.jar
+* libs\com.umeng.message.lib_v2.5.0_unity_1.0.jar => app\libs\com.umeng.message.lib_v2.5.0_unity_1.0.jar
+* libs\commons-net-3.4.jar => app\libs\commons-net-3.4.jar
+* libs\EasyMovieTexture.jar => app\libs\EasyMovieTexture.jar
+* libs\FunCrash_0.1.0.jar => app\libs\FunCrash_0.1.0.jar
+* libs\gvr_audio.jar => app\libs\gvr_audio.jar
+* libs\ImageLoader.jar => app\libs\ImageLoader.jar
+* libs\ProxyService.jar => app\libs\ProxyService.jar
+* libs\umeng-analytics-v5.6.4.jar => app\libs\umeng-analytics-v5.6.4.jar
+* libs\UmengReport.jar => app\libs\UmengReport.jar
+* libs\unity-classes.jar => app\libs\unity-classes.jar
+* libs\universal-image-loader-1.9.5.jar => app\libs\universal-image-loader-1.9.5.jar
+* libs\vrlib-idealsee.jar => app\libs\vrlib-idealsee.jar
+* libs\x86\libaudioplugingvrunity.so => app\src\main\jniLibs\x86\libaudioplugingvrunity.so
+* libs\x86\libBlueDoveMediaRender.so => app\src\main\jniLibs\x86\libBlueDoveMediaRender.so
+* libs\x86\libcocklogic.so => app\src\main\jniLibs\x86\libcocklogic.so
+* libs\x86\libgvrunity.so => app\src\main\jniLibs\x86\libgvrunity.so
+* libs\x86\libmain.so => app\src\main\jniLibs\x86\libmain.so
+* libs\x86\libmono.so => app\src\main\jniLibs\x86\libmono.so
+* libs\x86\libtnet-2.0.17.2-agoo.so => app\src\main\jniLibs\x86\libtnet-2.0.17.2-agoo.so
+* libs\x86\libunity.so => app\src\main\jniLibs\x86\libunity.so
+* libs\zip_file.jar => app\libs\zip_file.jar
+* res\ => app\src\main\res\
+* src\ => app\src\main\java\
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)

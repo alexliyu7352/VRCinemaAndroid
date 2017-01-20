@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="UmengReport">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/UmengReport.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

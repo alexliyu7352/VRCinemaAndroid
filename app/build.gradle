@@ -1,0 +1,102 @@
+apply plugin: 'com.android.application'
+
+android {
+    productFlavors {
+        guanfang {}
+//        hiapk {}
+//        baidu {}
+//        mi {}
+//        hicloud {}
+//        _360 {
+//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "360"]
+//        }
+//        meizu {}
+//        _91{
+//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "91"]
+//        }
+//        lenovomm {}
+//        appchina {}
+//        oppo {}
+//        gfan {}
+//        _163{
+//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "163"]
+//        }
+//        wandoujia {}
+//        anzhi {}
+//        mumayi {}
+//        sogou {}
+//        wo {}
+//        lewo {}
+//          sanxing {}
+//        Tencent {}
+    }
+
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+
+    signingConfigs {
+        release {
+            keyAlias 'bestv.keystore'
+            keyPassword 'gamma123'
+            storeFile file('/Users/xujunyang/work/Bestv/VR/code/vr-cinema/apk_sign/bestv.keystore')
+            storePassword 'gamma123'
+        }
+    }
+    compileSdkVersion 23
+    buildToolsVersion "24.0.2"
+    defaultConfig {
+        applicationId "com.bestv.vrcinema"
+        minSdkVersion 16
+        targetSdkVersion 23
+        versionCode 960
+        versionName "0.9.6.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.release
+
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        def fileName = "BestvVR_"+ "${defaultConfig.versionName}" +"_${variant.productFlavors[0].name}.apk"
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+                }
+            }
+        }
+    }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+}
+
+dependencies {
+    compile 'com.android.support:appcompat-v7:23.0.0'
+    compile 'com.android.support:support-v4:23.0.0'
+    compile 'com.android.support:recyclerview-v7:23.0.0'
+    compile 'com.squareup.okhttp3:okhttp:3.5.0'
+    compile files('libs/android-async-http-1.4.4.jar')
+    compile files('libs/BesTVMediaPlayer.jar')
+    compile files('libs/commons-net-3.4.jar')
+    compile files('libs/EasyMovieTexture.jar')
+    compile files('libs/FunCrash_0.1.0.jar')
+    compile files('libs/gson-2.6.2.jar')
+    compile files('libs/gvr_audio.jar')
+    compile files('libs/ImageLoader.jar')
+    compile files('libs/ProxyService.jar')
+    compile files('libs/umeng-analytics-v5.6.4.jar')
+    compile files('libs/UmengReport.jar')
+    compile files('libs/unity-classes.jar')
+    compile files('libs/universal-image-loader-1.9.5.jar')
+    compile files('libs/vrlib-idealsee.jar')
+    compile files('libs/zip_file.jar')
+    compile(name: 'gvr_android_common', ext: 'aar')
+    compile(name: 'unitygvractivity', ext: 'aar')
+    compile project(':PushSDK')
+}

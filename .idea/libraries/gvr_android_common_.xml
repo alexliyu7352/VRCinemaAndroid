@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="gvr_android_common-">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/gvr_android_common/res" />
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/gvr_android_common/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

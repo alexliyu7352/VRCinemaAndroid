@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bg"
+        android:background="#00000000" />
+
+    <ProgressBar
+        android:id="@+id/main_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp">
+
+        <!--海报区域-->
+        <FrameLayout
+            android:id="@+id/fragment_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_centerHorizontal="true">
+        </FrameLayout>
+        <!--dot区域-->
+        <LinearLayout
+            android:id="@+id/dot_area"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_gravity="center_horizontal">
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom">
+        <include layout="@layout/bottom_toolbar" />
+    </FrameLayout>
+
+    <ImageButton
+        android:id="@+id/button_vrmode"
+        android:layout_width="66dp"
+        android:layout_height="58dp"
+        android:src="@drawable/icon_vr"
+        android:layout_gravity="bottom|center_horizontal"
+        android:background="#00000000" />
+
+</FrameLayout>
+
