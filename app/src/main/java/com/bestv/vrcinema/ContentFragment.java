@@ -25,7 +25,6 @@ import java.util.List;
 public class ContentFragment extends android.support.v4.app.Fragment {
     private static final int commonFragmentCount = 10;
     private ViewPager viewPager;
-    private List<PageFragment> fragments = new ArrayList<>(); // 供ViewPager使用
     private ArrayList<ImageView> dotImageViews = new ArrayList<>();  // 翻页索引
 
 
@@ -53,19 +52,13 @@ public class ContentFragment extends android.support.v4.app.Fragment {
         // 1. viewPager添加parallax效果，使用PageTransformer就足够了
         viewPager.setPageTransformer(false, new CustPagerTransformer(getActivity()));
 
-        // 2. viewPager添加adapter
-        for (int i = 0; i < commonFragmentCount; i++) {
-            // 预先准备10个fragment
-            PageFragment fragment = new PageFragment();
-            fragment.setIndex(i);
-            fragments.add(fragment);
-        }
 
         viewPager.setAdapter(new FragmentStatePagerAdapter(getActivity().getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                PageFragment fragment = fragments.get(position % commonFragmentCount);
-                fragment.bindData(RecommendInfoSingleton.getInstance().getMovieInfo(position));
+                int cur = viewPager.getCurrentItem();
+                boolean showInfo = (cur == position);
+                PageFragment fragment = PageFragment.newInstance(RecommendInfoSingleton.getInstance().getMovieInfo(position), showInfo);
                 return fragment;
             }
 
@@ -113,15 +106,7 @@ public class ContentFragment extends android.support.v4.app.Fragment {
     }
 
     private void updatePage(){
-        int totalNum = viewPager.getAdapter().getCount();
-        int currentItem = viewPager.getCurrentItem();
-        fragments.get(currentItem%commonFragmentCount).appearMovieInfo();
-        if(currentItem-1 >= 0){
-            fragments.get((currentItem-1)%commonFragmentCount).disappearMovieInfo();
-        }
-        if(currentItem+1<totalNum){
-            fragments.get((currentItem+1)%commonFragmentCount).disappearMovieInfo();
-        }
+
     }
 
     private void dynamicAddImageview(){

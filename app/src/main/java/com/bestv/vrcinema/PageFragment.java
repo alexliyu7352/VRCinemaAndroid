@@ -28,8 +28,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  */
 
 public class PageFragment extends Fragment {
-    private int index = 0;
-    private boolean firstDisappear = true;
+    private boolean appearStatus = true;
     private MovieInfo movieInfo;
 
     private RelativeLayout infoArea;
@@ -44,6 +43,32 @@ public class PageFragment extends Fragment {
 
     private ImageButton playButton;
 
+
+    /**
+     * Create a new instance of CountingFragment, providing "num"
+     * as an argument.
+     */
+    static PageFragment newInstance(MovieInfo info, boolean appear) {
+        PageFragment f = new PageFragment();
+
+        // Supply num input as an argument.
+        Bundle args = new Bundle();
+        args.putBoolean("appearStatus", appear);
+        args.putParcelable("movieInfo", info);
+        f.setArguments(args);
+
+        return f;
+    }
+
+    /**
+     * When creating, retrieve this instance's number from its arguments.
+     */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        appearStatus = getArguments() != null ? getArguments().getBoolean("appearStatus") : true;
+        movieInfo = getArguments() != null ? (MovieInfo) getArguments().getParcelable("movieInfo") : null;
+    }
 
     @Override
     public View onCreateView (LayoutInflater inflater,
@@ -89,10 +114,6 @@ public class PageFragment extends Fragment {
         });
     }
 
-    public void bindData(MovieInfo vo) {
-        movieInfo = vo;
-    }
-
     private void initUI(View view){
         try{
             playButton = (ImageButton)view.findViewById(R.id.play);
@@ -122,8 +143,9 @@ public class PageFragment extends Fragment {
             }
 
             infoArea = (RelativeLayout)view.findViewById(R.id.info_area);
-            if(index == 1 && firstDisappear){
-                firstDisappear = false;
+            if(appearStatus){
+                appearMovieInfo();
+            }else{
                 disappearMovieInfo();
             }
 
@@ -136,9 +158,6 @@ public class PageFragment extends Fragment {
         }
     }
 
-    public void setIndex(int index){
-        this.index = index;
-    }
 
     public void appearMovieInfo(){
         if(infoArea != null){
