@@ -74,7 +74,8 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
 
                 int position = holder.getAdapterPosition();
                 MovieInfo movieInfo = movieInfoList.get(position*2);
-                CurrentMovieInfo.updateInfo(movieInfo.code, movieInfo.type, movieInfo.playUrl, movieInfo.name, movieInfo.episode);
+                CurrentMovieInfo.updateInfo(movieInfo.getCode(), movieInfo.getType(),
+                        movieInfo.getPlayUrl(), movieInfo.getName(), movieInfo.getEpisode());
 
                 try {
                     boolean canWriteSettings = PermissionUtil.checkWriteSettingsPermission(activity);
@@ -89,7 +90,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
 
                 // 2: play search result
                 String report = HttpReporterBuilder.buildTemporaryReport(HttpReporterBuilder.play, String.format("%s+%s",
-                        HttpReporterBuilder.searchPlay, movieInfo.code));
+                        HttpReporterBuilder.searchPlay, movieInfo.getCode()));
                 HttpReporterImpl.getInstance().reportSth(report);
             }
         });
@@ -104,7 +105,8 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
 
                 int position = holder.getAdapterPosition();
                 MovieInfo movieInfo = movieInfoList.get(position*2+1);
-                CurrentMovieInfo.updateInfo(movieInfo.code, movieInfo.type, movieInfo.playUrl, movieInfo.name, movieInfo.episode);
+                CurrentMovieInfo.updateInfo(movieInfo.getCode(), movieInfo.getType(), movieInfo.getPlayUrl(),
+                        movieInfo.getName(), movieInfo.getEpisode());
 
                 try {
                     boolean canWriteSettings = PermissionUtil.checkWriteSettingsPermission(activity);
@@ -119,7 +121,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
 
                 // 2: play search result
                 String report = HttpReporterBuilder.buildTemporaryReport(HttpReporterBuilder.play, String.format("%s+%s",
-                        HttpReporterBuilder.searchPlay, movieInfo.code));
+                        HttpReporterBuilder.searchPlay, movieInfo.getCode()));
                 HttpReporterImpl.getInstance().reportSth(report);
             }
         });
@@ -134,18 +136,18 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
 
         holder.frame1.setVisibility(View.VISIBLE);
         MovieInfo movieInfo1 = movieInfoList.get(position*2);
-        if(!TextUtils.isEmpty(movieInfo1.horizontalPic)){
-            ImageLoader.getInstance().displayImage(movieInfo1.horizontalPic, holder.image1);
+        if(!TextUtils.isEmpty(movieInfo1.getHorizontalPic())){
+            ImageLoader.getInstance().displayImage(movieInfo1.getHorizontalPic(), holder.image1);
         }
-        holder.text1.setText(movieInfo1.name);
+        holder.text1.setText(movieInfo1.getName());
 
         if(movieInfoList.size() > (position*2+1)){
             holder.frame2.setVisibility(View.VISIBLE);
             MovieInfo movieInfo2 = movieInfoList.get(position*2+1);
-            if(!TextUtils.isEmpty(movieInfo2.horizontalPic)){
-                ImageLoader.getInstance().displayImage(movieInfo2.horizontalPic, holder.image2);
+            if(!TextUtils.isEmpty(movieInfo2.getHorizontalPic())){
+                ImageLoader.getInstance().displayImage(movieInfo2.getHorizontalPic(), holder.image2);
             }
-            holder.text2.setText(movieInfo2.name);
+            holder.text2.setText(movieInfo2.getName());
         }else{
             holder.frame2.setVisibility(View.GONE);
         }

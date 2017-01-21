@@ -36,21 +36,21 @@ public class JsonParser {
                 for (int i = 0; i < jsonArray.length(); i++){
                     JSONObject element = jsonArray.getJSONObject(i);
                     MovieInfo movieInfo = new MovieInfo();
-                    movieInfo.name = element.getString("name");
-                    movieInfo.code = element.getString("code");
-                    movieInfo.type = element.getString("type");
-                    movieInfo.playUrl = element.getString("playUrl");
-                    movieInfo.horizontalPic = element.getString("horizontalPic");
-                    movieInfo.verticalPic = element.getString("verticalPic");
-                    movieInfo.duration = element.getInt("length")/60;
-                    movieInfo.rating = element.getDouble("rating");
-                    movieInfo.showDetail = element.getString("showDetail");
-                    movieInfo.year = element.optString("year");
-                    movieInfo.episode = element.optInt("episode");
-                    movieInfo.genre = element.getString("genre");
-                    movieInfo.actor = element.getString("actor");
-                    movieInfo.director = element.getString("director");
-                    movieInfo.description = element.getString("description");
+                    movieInfo.setName(element.getString("name"));
+                    movieInfo.setCode(element.getString("code"));
+                    movieInfo.setType(element.getString("type"));
+                    movieInfo.setPlayUrl(element.getString("playUrl"));
+                    movieInfo.setHorizontalPic(element.getString("horizontalPic"));
+                    movieInfo.setVerticalPic(element.getString("verticalPic"));
+                    movieInfo.setDuration(element.getInt("length")/60);
+                    movieInfo.setRating(element.getDouble("rating"));
+                    movieInfo.setShowDetail(element.getString("showDetail"));
+                    movieInfo.setYear(element.optString("year"));
+                    movieInfo.setEpisode(element.optInt("episode"));
+                    movieInfo.setGenre(element.getString("genre"));
+                    movieInfo.setActor(element.getString("actor"));
+                    movieInfo.setDirector(element.getString("director"));
+                    movieInfo.setDescription(element.getString("description"));
 
                     touchRecommendInfo.addMovieInfo(movieInfo);
                 }
@@ -76,17 +76,17 @@ public class JsonParser {
                 for (int i = 0; i < jsonArray.length(); i++){
                     JSONObject element = jsonArray.getJSONObject(i);
                     MovieInfo movieInfo = new MovieInfo();
-                    movieInfo.name = element.getString("name");
-                    movieInfo.code = element.getString("code");
-                    movieInfo.type = element.getString("type");
-                    movieInfo.playUrl = element.getString("playUrl");
-                    movieInfo.horizontalPic = element.getString("horizontalPic");
-                    movieInfo.verticalPic = element.getString("verticalPic");
-                    movieInfo.rating = element.getDouble("rating");
-                    movieInfo.showDetail = element.getString("showDetail");
-                    movieInfo.year = element.optString("year");
-                    movieInfo.episode = element.optInt("episode");
-                    movieInfo.genre = element.getString("genre");
+                    movieInfo.setName(element.getString("name"));
+                    movieInfo.setCode(element.getString("code"));
+                    movieInfo.setType(element.getString("type"));
+                    movieInfo.setPlayUrl(element.getString("playUrl"));
+                    movieInfo.setHorizontalPic(element.getString("horizontalPic"));
+                    movieInfo.setVerticalPic(element.getString("verticalPic"));
+                    movieInfo.setRating(element.getDouble("rating"));
+                    movieInfo.setShowDetail(element.getString("showDetail"));
+                    movieInfo.setYear(element.optString("year"));
+                    movieInfo.setEpisode(element.optInt("episode"));
+                    movieInfo.setGenre(element.getString("genre"));
 
                     searchResultInfo.addMovieInfo(movieInfo);
                 }

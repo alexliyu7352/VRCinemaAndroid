@@ -68,7 +68,8 @@ public class PageFragment extends Fragment {
                     return;
                 }
 
-                CurrentMovieInfo.updateInfo(movieInfo.code, movieInfo.type, movieInfo.playUrl, movieInfo.name, movieInfo.episode);
+                CurrentMovieInfo.updateInfo(movieInfo.getCode(), movieInfo.getType(),
+                        movieInfo.getPlayUrl(), movieInfo.getName(), movieInfo.getEpisode());
 
                 try {
                     boolean canWriteSettings = PermissionUtil.checkWriteSettingsPermission(getActivity());
@@ -81,7 +82,8 @@ public class PageFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                String report = HttpReporterBuilder.buildTemporaryReport(HttpReporterBuilder.play, String.format("%s+%s",HttpReporterBuilder.recommendPlay, movieInfo.code));
+                String report = HttpReporterBuilder.buildTemporaryReport(HttpReporterBuilder.play,
+                        String.format("%s+%s",HttpReporterBuilder.recommendPlay, movieInfo.getCode()));
                 HttpReporterImpl.getInstance().reportSth(report);
             }
         });
@@ -96,26 +98,26 @@ public class PageFragment extends Fragment {
             playButton = (ImageButton)view.findViewById(R.id.play);
 
             durationView = (TextView)view.findViewById(R.id.duration);
-            durationView.setText(movieInfo.duration+"分钟");
+            durationView.setText(movieInfo.getDuration()+"分钟");
 
             ratingView = (TextView)view.findViewById(R.id.rating);
-            ratingView.setText(movieInfo.rating+"分");
+            ratingView.setText(movieInfo.getRating()+"分");
 
             titleView = (TextView)view.findViewById(R.id.title);
-            titleView.setText(movieInfo.name);
+            titleView.setText(movieInfo.getName());
 
             directorView = (TextView)view.findViewById(R.id.director);
-            directorView.setText("导演: "+movieInfo.director);
+            directorView.setText("导演: "+movieInfo.getDirector());
 
             actorView = (TextView)view.findViewById(R.id.actor);
-            actorView.setText("演员: "+movieInfo.actor);
+            actorView.setText("演员: "+movieInfo.getActor());
 
             descriptionView = (TextView)view.findViewById(R.id.description);
-            if(!TextUtils.isEmpty(movieInfo.description)){
-                if(movieInfo.description.length() < 100){
-                    descriptionView.setText("剧情简介: "+movieInfo.description);
+            if(!TextUtils.isEmpty(movieInfo.getDescription())){
+                if(movieInfo.getDescription().length() < 100){
+                    descriptionView.setText("剧情简介: "+movieInfo.getDescription());
                 }else{
-                    descriptionView.setText("剧情简介: "+movieInfo.description.substring(0, 100));
+                    descriptionView.setText("剧情简介: "+movieInfo.getDescription().substring(0, 100));
                 }
             }
 
@@ -126,8 +128,8 @@ public class PageFragment extends Fragment {
             }
 
             imageView = (ImageView)view.findViewById(R.id.posters);
-            if(!TextUtils.isEmpty(movieInfo.horizontalPic)){
-                ImageLoader.getInstance().displayImage(movieInfo.horizontalPic, imageView);
+            if(!TextUtils.isEmpty(movieInfo.getHorizontalPic())){
+                ImageLoader.getInstance().displayImage(movieInfo.getHorizontalPic(), imageView);
             }
         }catch (Exception e){
             e.printStackTrace();
