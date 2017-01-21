@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
 		transaction.replace(R.id.fragment_layout, fragment);
-		transaction.commit();
+		transaction.commitAllowingStateLoss();
 	}
 
 	private void initUPush(){
