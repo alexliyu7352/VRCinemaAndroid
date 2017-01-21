@@ -58,7 +58,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     Runnable splashRun = new Runnable() {
         public void run() {
             //判断是否有开机广告,否则跳转到主界面
-            if(WelcomeInfo.getInstance().showAd){
+            if(WelcomeInfo.getInstance().isShowAd()){
                 handleAd();
             }else{
                 startMainActivity();
@@ -176,8 +176,8 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
     public void preloadAdImage(){
         // 预加载广告图
-        if(WelcomeInfo.getInstance().showAd && !TextUtils.isEmpty(WelcomeInfo.getInstance().imgURL)) {
-            ImageLoader.getInstance().displayImage(WelcomeInfo.getInstance().imgURL, adImage, new ImageLoadingListener() {
+        if(WelcomeInfo.getInstance().isShowAd() && !TextUtils.isEmpty(WelcomeInfo.getInstance().getAdImgURL())) {
+            ImageLoader.getInstance().displayImage(WelcomeInfo.getInstance().getAdImgURL(), adImage, new ImageLoadingListener() {
                 @Override
                 public void onLoadingStarted(String var1, View var2) {
 
@@ -190,7 +190,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
                 @Override
                 public void onLoadingComplete(String var1, View var2, Bitmap var3) {
-                    WelcomeInfo.getInstance().loadImageSuccess = true;
+                    WelcomeInfo.getInstance().setLoadImageSuccess(true);
                 }
 
 
@@ -203,19 +203,19 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void handleAd(){
-        if(WelcomeInfo.getInstance().loadImageSuccess){
-            ImageLoader.getInstance().displayImage(WelcomeInfo.getInstance().imgURL, adImage);
+        if(WelcomeInfo.getInstance().isLoadImageSuccess()){
+            ImageLoader.getInstance().displayImage(WelcomeInfo.getInstance().getAdImgURL(), adImage);
 
             startLayout.setVisibility(View.GONE);
             adLayout.setVisibility(View.VISIBLE);
             adButton.setOnClickListener(SplashActivity.this);
             adJump.setOnClickListener(this);
 
-            jumpLeft = WelcomeInfo.getInstance().timeout;
+            jumpLeft = WelcomeInfo.getInstance().getAdTimeout();
             adJump.setText(jumpLeft + "秒后跳过");
             myHandler.postDelayed(jumpRun, 1000);
 
-            myHandler.postDelayed(adRun, WelcomeInfo.getInstance().timeout*1000);
+            myHandler.postDelayed(adRun, WelcomeInfo.getInstance().getAdTimeout()*1000);
         }else{
             startMainActivity();
         }
@@ -226,11 +226,12 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v){
         switch (v.getId()){
             case R.id.adButton:
-                if (WelcomeInfo.getInstance().adType.contains(WelcomeInfo.OPENTAG) && WelcomeInfo.getInstance().adValue != "")
+                if (WelcomeInfo.getInstance().getAdType().contains(WelcomeInfo.OPENTAG)
+                        && WelcomeInfo.getInstance().getAdValue() != "")
                 {
-                    Uri uri = Uri.parse(WelcomeInfo.getInstance().adValue);
+                    Uri uri = Uri.parse(WelcomeInfo.getInstance().getAdValue());
                     startActivity(new Intent(Intent.ACTION_VIEW,uri));
-                }else if(WelcomeInfo.getInstance().adType.contains(WelcomeInfo.PLAYTAG)){
+                }else if(WelcomeInfo.getInstance().getAdType().contains(WelcomeInfo.PLAYTAG)){
                     // 取消跳转到MainActivity的调用
                     myHandler.removeCallbacks(adRun);
                     // 取消倒计时
@@ -239,8 +240,8 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
                     // 先启动MainActivity，避免从播放场景返回到splashActivity
                     startMainActivity();
 
-                    CurrentMovieInfo.updateInfo(WelcomeInfo.getInstance ().videoCode, WelcomeInfo.getInstance ().videoType,
-                            WelcomeInfo.getInstance ().videoURL, WelcomeInfo.getInstance ().videoName, 0);
+                    CurrentMovieInfo.updateInfo(WelcomeInfo.getInstance ().getVideoCode(), WelcomeInfo.getInstance ().getVideoType(),
+                            WelcomeInfo.getInstance ().getVideoURL(), WelcomeInfo.getInstance ().getVideoName(), 0);
                     try {
                         boolean canWriteSettings = PermissionUtil.checkWriteSettingsPermission(SplashActivity.this);
                         if(canWriteSettings){
@@ -253,7 +254,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
                     }
                 }
 
-                String report = HttpReporterBuilder.buildTemporaryReport(HttpReporterBuilder.adTag, WelcomeInfo.getInstance().adType);
+                String report = HttpReporterBuilder.buildTemporaryReport(HttpReporterBuilder.adTag, WelcomeInfo.getInstance().getAdType());
                 HttpReporterImpl.getInstance().reportSth(report);
                 break;
             case R.id.adJump:

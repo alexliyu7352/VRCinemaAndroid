@@ -104,31 +104,31 @@ public class JsonParser {
             int rc = jsonObj.getInt("rc");
             if(rc == 0){
                 JSONObject body = jsonObj.getJSONObject("body");
-                WelcomeInfo.getInstance().title = body.getString("title");
-                WelcomeInfo.getInstance().content = body.getString("content");
-                WelcomeInfo.getInstance().btnStr = body.getString("button");
-                WelcomeInfo.getInstance().btnURL = body.getString("url");
+                WelcomeInfo.getInstance().setTitle(body.getString("title"));
+                WelcomeInfo.getInstance().setContent(body.getString("content"));
+                WelcomeInfo.getInstance().setBtnStr(body.getString("button"));
+                WelcomeInfo.getInstance().setBtnURL(body.getString("url"));
 
                 try {
                     JSONObject boot_ad = body.getJSONObject("boot_ad");
-                    WelcomeInfo.getInstance().adType = boot_ad.getString("type");
-                    WelcomeInfo.getInstance().imgURL = boot_ad.getString("ad_img_url");
-                    WelcomeInfo.getInstance().btnType = boot_ad.getInt("button_type");
-                    WelcomeInfo.getInstance().timeout = boot_ad.getInt("timeout");
+                    WelcomeInfo.getInstance().setAdType(boot_ad.getString("type"));
+                    WelcomeInfo.getInstance().setAdImgURL(boot_ad.getString("ad_img_url"));
+                    WelcomeInfo.getInstance().setAdBtnType(boot_ad.getInt("button_type"));
+                    WelcomeInfo.getInstance().setAdTimeout(boot_ad.getInt("timeout"));
 
-                    if(WelcomeInfo.getInstance().adType.contains(WelcomeInfo.OPENTAG)){
-                        WelcomeInfo.getInstance().adValue = boot_ad.getString("value");
-                    }else if(WelcomeInfo.getInstance().adType.contains(WelcomeInfo.PLAYTAG)){
+                    if(WelcomeInfo.getInstance().getAdType().contains(WelcomeInfo.OPENTAG)){
+                        WelcomeInfo.getInstance().setAdValue(boot_ad.getString("value"));
+                    }else if(WelcomeInfo.getInstance().getAdType().contains(WelcomeInfo.PLAYTAG)){
                         JSONObject videoInfo = boot_ad.getJSONObject("value");
                         // for video
-                        WelcomeInfo.getInstance().videoCode = videoInfo.getString("video_code");
-                        WelcomeInfo.getInstance().videoType = videoInfo.getString("video_type");
-                        WelcomeInfo.getInstance().videoName = videoInfo.getString("video_name");
-                        WelcomeInfo.getInstance().videoURL = videoInfo.getString("video_url");
+                        WelcomeInfo.getInstance().setVideoCode(videoInfo.getString("video_code"));
+                        WelcomeInfo.getInstance().setVideoType(videoInfo.getString("video_type"));
+                        WelcomeInfo.getInstance().setVideoName(videoInfo.getString("video_name"));
+                        WelcomeInfo.getInstance().setVideoURL(videoInfo.getString("video_url"));
                     }
 
                     // 显示开机广告
-                    WelcomeInfo.getInstance().showAd = true;
+                    WelcomeInfo.getInstance().setShowAd(true);
 
                 }catch (Exception e){
                     e.printStackTrace();
