@@ -45,9 +45,6 @@ import java.util.List;
  * Created by xujy on 2016/9/12.
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private ViewPager viewPager;
-    private List<PageFragment> fragments = new ArrayList<>(); // 供ViewPager使用
-
     private ProgressBar mainProgressBar;
 
     @Override

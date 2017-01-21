@@ -26,7 +26,7 @@ public class ContentFragment extends android.support.v4.app.Fragment {
     private static final int commonFragmentCount = 10;
     private ViewPager viewPager;
     private List<PageFragment> fragments = new ArrayList<>(); // 供ViewPager使用
-    private ArrayList<ImageView> imageViews = new ArrayList<>();
+    private ArrayList<ImageView> dotImageViews = new ArrayList<>();  // 翻页索引
 
 
     @Override
@@ -103,12 +103,12 @@ public class ContentFragment extends android.support.v4.app.Fragment {
     private void updateIndicator() {
         int totalNum = viewPager.getAdapter().getCount();
         int currentItem = viewPager.getCurrentItem();
-        imageViews.get(currentItem).setImageDrawable(this.getResources().getDrawable((R.drawable.dot_current)));
+        dotImageViews.get(currentItem).setImageDrawable(this.getResources().getDrawable((R.drawable.dot_current)));
         if(currentItem-1 >= 0){
-            imageViews.get(currentItem-1).setImageDrawable(this.getResources().getDrawable((R.drawable.dot_normal)));
+            dotImageViews.get(currentItem-1).setImageDrawable(this.getResources().getDrawable((R.drawable.dot_normal)));
         }
         if(currentItem+1<totalNum){
-            imageViews.get(currentItem+1).setImageDrawable(this.getResources().getDrawable((R.drawable.dot_normal)));
+            dotImageViews.get(currentItem+1).setImageDrawable(this.getResources().getDrawable((R.drawable.dot_normal)));
         }
     }
 
@@ -143,7 +143,7 @@ public class ContentFragment extends android.support.v4.app.Fragment {
                 imageView.setImageDrawable(this.getResources().getDrawable((R.drawable.dot_normal)));
             }
 
-            imageViews.add(imageView);
+            dotImageViews.add(imageView);
         }
     }
 
