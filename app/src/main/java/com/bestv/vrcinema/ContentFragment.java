@@ -54,6 +54,8 @@ public class ContentFragment extends android.support.v4.app.Fragment {
 
 
         viewPager.setAdapter(new FragmentStatePagerAdapter(getActivity().getSupportFragmentManager()) {
+            private PageFragment currentPrimaryPage = null;
+
             @Override
             public Fragment getItem(int position) {
                 int cur = viewPager.getCurrentItem();
@@ -65,6 +67,22 @@ public class ContentFragment extends android.support.v4.app.Fragment {
             @Override
             public int getCount() {
                 return RecommendInfoSingleton.getInstance().getItemsCount();
+            }
+
+            @Override
+            public void setPrimaryItem(ViewGroup container, int position, Object object) {
+                super.setPrimaryItem(container, position, object);
+
+                PageFragment pageFragment = (PageFragment) object;
+                if (pageFragment != currentPrimaryPage) {
+                    if (currentPrimaryPage != null) {
+                        currentPrimaryPage.disappearMovieInfo();
+                    }
+                    if (pageFragment != null) {
+                        pageFragment.appearMovieInfo();
+                    }
+                    currentPrimaryPage = pageFragment;
+                }
             }
         });
 
@@ -95,13 +113,15 @@ public class ContentFragment extends android.support.v4.app.Fragment {
      */
     private void updateIndicator() {
         int totalNum = viewPager.getAdapter().getCount();
-        int currentItem = viewPager.getCurrentItem();
-        dotImageViews.get(currentItem).setImageDrawable(this.getResources().getDrawable((R.drawable.dot_current)));
-        if(currentItem-1 >= 0){
-            dotImageViews.get(currentItem-1).setImageDrawable(this.getResources().getDrawable((R.drawable.dot_normal)));
-        }
-        if(currentItem+1<totalNum){
-            dotImageViews.get(currentItem+1).setImageDrawable(this.getResources().getDrawable((R.drawable.dot_normal)));
+        if(totalNum > 0){
+            int currentItem = viewPager.getCurrentItem();
+            dotImageViews.get(currentItem).setImageDrawable(this.getResources().getDrawable((R.drawable.dot_current)));
+            if(currentItem-1 >= 0){
+                dotImageViews.get(currentItem-1).setImageDrawable(this.getResources().getDrawable((R.drawable.dot_normal)));
+            }
+            if(currentItem+1<totalNum){
+                dotImageViews.get(currentItem+1).setImageDrawable(this.getResources().getDrawable((R.drawable.dot_normal)));
+            }
         }
     }
 

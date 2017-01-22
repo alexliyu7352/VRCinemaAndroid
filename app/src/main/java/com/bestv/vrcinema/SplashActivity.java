@@ -45,7 +45,7 @@ import java.io.File;
  * Created by xujunyang on 17/1/12.
  */
 
-public class SplashActivity extends AppCompatActivity implements View.OnClickListener{
+public class SplashActivity extends VRBaseActivity implements View.OnClickListener{
     private final int SPLASH_DISPLAY_LENGHT = 2000; // 延迟2秒
     private int jumpLeft = 0;
     FrameLayout startLayout;
@@ -104,10 +104,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         adJump = (TextView)findViewById(R.id.adJump);
         adLayout.setVisibility(View.GONE);
 
-        // 2. 初始化ImageLoader
-        initImageLoader();
-
-        // 3. 获取开机信息
+        // 2. 获取开机信息
         initRecommendInfo();
 
         // 延迟跳转
@@ -134,39 +131,6 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         SplashActivity.this.finish();
     }
 
-    private void initImageLoader() {
-        String cacheDirPath = "/sdcard/imageloader/Cache";
-        File cacheDir = new File(cacheDirPath);
-
-        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
-                .build();
-
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
-                this)
-                .memoryCacheExtraOptions(480, 800)
-                // default = device screen dimensions
-                .threadPoolSize(3)
-                // default
-                .threadPriority(Thread.NORM_PRIORITY - 1)
-                // default
-                .tasksProcessingOrder(QueueProcessingType.FIFO)
-                // default
-                .denyCacheImageMultipleSizesInMemory()
-                .memoryCache(new LruMemoryCache(2 * 1024 * 1024))
-                .memoryCacheSize(2 * 1024 * 1024).memoryCacheSizePercentage(13) // default
-                .diskCacheSize(50 * 1024 * 1024) // 缓冲大小
-                .diskCacheFileCount(100) // 缓冲文件数目
-                .diskCacheFileNameGenerator(new HashCodeFileNameGenerator()) // default
-                .imageDownloader(new BaseImageDownloader(this)) // default
-                .defaultDisplayImageOptions(defaultOptions)
-                .writeDebugLogs().build();
-
-        // 2.单例ImageLoader类的初始化
-        ImageLoader imageLoader = ImageLoader.getInstance();
-        imageLoader.init(config);
-    }
 
     private void initRecommendInfo(){
         String welcomeURL = ConstantInterface.WELCOMEURL + "?version=" + ConstantInterface.VERSION

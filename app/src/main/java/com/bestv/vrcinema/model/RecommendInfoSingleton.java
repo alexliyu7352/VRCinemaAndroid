@@ -37,6 +37,10 @@ public class RecommendInfoSingleton {
         Log.d("RecommendInfoSingleton", "size: " + touchRecommendInfo.getMovieInfos().size());
     }
 
+    public void clearRecommendInfo(){
+        touchRecommendInfo.clearInfo();
+    }
+
     public boolean getHasNext(){
         return touchRecommendInfo.getHasNext();
     }

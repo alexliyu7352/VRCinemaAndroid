@@ -13,13 +13,14 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.bestv.vrcinema.model.RecommendInfoSingleton;
 import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by xujunyang on 17/1/4.
  */
 
-public class MySettingActivity extends AppCompatActivity implements View.OnClickListener{
+public class MySettingActivity extends VRBaseActivity implements View.OnClickListener{
     public static void actionStart(Context context, String subTitle){
         Intent intent = new Intent(context, MySettingActivity.class);
         intent.putExtra("subtitle", subTitle);
@@ -41,6 +42,8 @@ public class MySettingActivity extends AppCompatActivity implements View.OnClick
         title_back.setOnClickListener(this);
 
         replaceFragment(new MySettingFragment());
+
+        RecommendInfoSingleton.getInstance().clearRecommendInfo();
     }
 
     // 基于友盟的session的统计

@@ -46,4 +46,6 @@ public class TouchRecommendInfo {
     public MovieInfo getMovieInfo(int index){
         return movieInfos.get(index);
     }
+
+    public void clearInfo(){movieInfos.clear();}
 }

@@ -44,7 +44,7 @@ import java.util.List;
 /**
  * Created by xujy on 2016/9/12.
  */
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends VRBaseActivity implements View.OnClickListener {
     private ProgressBar mainProgressBar;
 
     @Override

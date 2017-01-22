@@ -56,7 +56,7 @@ import java.util.TimerTask;
  * Created by xujunyang on 17/1/4.
  */
 
-public class SearchContentActivity extends AppCompatActivity implements View.OnClickListener {
+public class SearchContentActivity extends VRBaseActivity implements View.OnClickListener {
     private EditText searchContentEt;
     private ImageButton searchBack;
     private TextView searchDone;
